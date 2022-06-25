@@ -12,10 +12,10 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    function fetchMovieDetail() {
+    function fetchMovieDetail(id) {
         dispatch({
             type:'FETCH_MOVIE_DETAILS',
-            payload: movie.id
+            payload: id
         })
     }
 
@@ -28,7 +28,11 @@ function MovieList() {
                        
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <Link onClick={fetchMovieDetail} to={`/details/${movie.id}`}>
+                            <Link 
+                            onClick={()=>{
+                                fetchMovieDetail(movie.id)
+                            }} 
+                            to={`/details/${movie.id}`}>
                                 <img src={movie.poster} alt={movie.title}/>
                             </Link>
                         </div>

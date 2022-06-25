@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
-router.get('/', (req, res) => {
-  // Add query to get all genres
+router.get('/:id', (req, res) => {
+  const id = req.params.id;
+
+  console.log(id);
   /* 
     Get movie title, image, description, and an array of genres
   */
