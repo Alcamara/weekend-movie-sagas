@@ -3,6 +3,9 @@ import { useDispatch, useSelector, LI } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './MovieList.css'
 
+//MUI
+import Card from '@mui/material/Card';
+
 function MovieList() {
 
     const dispatch = useDispatch();
@@ -27,7 +30,7 @@ function MovieList() {
                 {movies.map(movie => {
                     return (
                        
-                        <div key={movie.id} >
+                        <Card key={movie.id} >
                             <h3>{movie.title}</h3>
                             <Link 
                             onClick={()=>{
@@ -36,7 +39,7 @@ function MovieList() {
                             to={`/details/${movie.id}`}>
                                 <img src={movie.poster} alt={movie.title}/>
                             </Link>
-                        </div>
+                        </Card>
                         
                     );
                 })}
