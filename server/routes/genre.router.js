@@ -16,7 +16,12 @@ router.get('/', (req, res) => {
 
   pool.query(movieDetailQuery)
     .then((results)=>{
-      console.log(results.rows);
+      //console.log(results.rows);
+
+      res.send(results.rows)
+    })
+    .catch((err)=>{
+      console.log('Get failed', err);
     })
   
 });
