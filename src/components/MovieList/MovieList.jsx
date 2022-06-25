@@ -5,6 +5,7 @@ import './MovieList.css'
 
 //MUI
 import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
 
 function MovieList() {
 
@@ -30,8 +31,10 @@ function MovieList() {
                 {movies.map(movie => {
                     return (
                        
-                        <Card key={movie.id} >
-                            <h3>{movie.title}</h3>
+                        <Card sx={{ minWidth: 200 }} key={movie.id} >
+                            <Typography>
+                                {movie.title}
+                            </Typography>
                             <Link 
                             onClick={()=>{
                                 fetchMovieDetail(movie.id)
