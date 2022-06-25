@@ -13,13 +13,17 @@ router.get('/:id', (req, res) => {
     SELECT movies.id, movies.title, movies.poster, movies.description, array_agg(genres.name) AS genreList FROM movies
     JOIN movies_genres ON movies_genres.movie_id = movies.id
     JOIN genres ON genres.id = movies_genres.genre_id
-    WHERE movies.id = 11
+    WHERE movies.id = $1
     GROUP BY movies.id, movies.title, movies.poster, movies.description;
   `
 
-  pool.query(movieDetailQuery)
+  const queryParams = [
+    id
+  ]
+
+  pool.query(movieDetailQuery,queryParams)
     .then((results)=>{
-      //console.log(results.rows);
+      console.log(results.rows);
 
       //sent query to client
       res.send(results.rows)
