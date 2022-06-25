@@ -13,7 +13,10 @@ function MovieList() {
     }, []);
 
     function fetchMovieDetail() {
-        console.log('in fn');
+        dispatch({
+            type:'FETCH_MOVIE_DETAILS',
+            payload: movie.id
+        })
     }
 
     return (
