@@ -2,21 +2,28 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
-router.get('/', (req, res) => {
-  // Add query to get all genres
+router.get('/:id', (req, res) => {
+  const id = req.params.id;
+
+  console.log(id);
   /* 
     Get movie title, image, description, and an array of genres
   */
   const movieDetailQuery = `
-    SELECT movies.id AS movieIds, movies.title, movies.poster, movies.description, array_agg(genres.name) AS genreList FROM movies
+    SELECT movies.id, movies.title, movies.poster, movies.description, array_agg(genres.name) AS genreList FROM movies
     JOIN movies_genres ON movies_genres.movie_id = movies.id
     JOIN genres ON genres.id = movies_genres.genre_id
-    GROUP BY movieIds, movies.title, movies.poster, movies.description;
+    WHERE movies.id = $1
+    GROUP BY movies.id, movies.title, movies.poster, movies.description;
   `
 
-  pool.query(movieDetailQuery)
+  const queryParams = [
+    id
+  ]
+
+  pool.query(movieDetailQuery,queryParams)
     .then((results)=>{
-      //console.log(results.rows);
+      console.log(results.rows);
 
       //sent query to client
       res.send(results.rows)
