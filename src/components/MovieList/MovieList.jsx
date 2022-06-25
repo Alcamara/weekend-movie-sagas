@@ -12,6 +12,10 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
+    function fetchMovieDetail() {
+        console.log('in fn');
+    }
+
     return (
         <main>
             <h1>MovieList</h1>
@@ -21,7 +25,7 @@ function MovieList() {
                        
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <Link to={`/details/${movie.id}`}>
+                            <Link onClick={fetchMovieDetail} to={`/details/${movie.id}`}>
                                 <img src={movie.poster} alt={movie.title}/>
                             </Link>
                         </div>
