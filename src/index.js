@@ -33,11 +33,19 @@ function* fetchAllMovies() {
 function* fetchMovieDetails(action){
     console.log(action.payload);
 
+    let response;
+
     try {
-        yield axios.get('/api/genre/'+ action.payload)
-    } catch (error) {
+        //make axios request to get movie title, image, 
+        //description, and an array of genres and store into response
+      response =  yield axios.get('/api/genre/'+ action.payload)
+      yield put({type:"SET_MOVIE_DETAILs", payload: response.data})
+    } catch (err) {
         console.log('Get Details failed', err);
     }
+
+    //console.log(response.data);
+
 }
 
 // Create sagaMiddleware
@@ -48,6 +56,18 @@ const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+//Used to store movie details return from the server
+const movieDetails = (state = [], action) =>{
+    switch (action.type) {
+        case 'SET_MOVIE_DETAILs':
+            
+            return [...state, action.type];
+    
         default:
             return state;
     }
@@ -68,6 +88,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        movieDetails
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

@@ -12,10 +12,11 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    function fetchMovieDetail(id) {
+    function fetchMovieDetail(MovieId) {
         dispatch({
             type:'FETCH_MOVIE_DETAILS',
-            payload: id
+            payload: MovieId
+            
         })
     }
 
