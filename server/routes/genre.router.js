@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
     .then((results)=>{
       //console.log(results.rows);
 
+      //sent query to client
       res.send(results.rows)
     })
     .catch((err)=>{
