@@ -6,6 +6,7 @@ import './MovieList.css'
 //MUI
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 function MovieList() {
 
@@ -28,24 +29,26 @@ function MovieList() {
         <main>
             <h1>MovieList</h1>
             <section className="movies">
+                <Grid container spacing={3}>
                 {movies.map(movie => {
                     return (
-                       
-                        <Card sx={{ minWidth: 200 }} key={movie.id} >
-                            <Typography>
-                                {movie.title}
-                            </Typography>
-                            <Link 
-                            onClick={()=>{
-                                fetchMovieDetail(movie.id)
-                            }} 
-                            to={`/details/${movie.id}`}>
-                                <img src={movie.poster} alt={movie.title}/>
-                            </Link>
-                        </Card>
-                        
+                       <Grid item >
+                            <Card sx={{ minWidth: 200 }} key={movie.id} >
+                                <Typography>
+                                    {movie.title}
+                                </Typography>
+                                <Link 
+                                onClick={()=>{
+                                    fetchMovieDetail(movie.id)
+                                }} 
+                                to={`/details/${movie.id}`}>
+                                    <img src={movie.poster} alt={movie.title} height='250'/>
+                                </Link>
+                            </Card>
+                        </Grid>
                     );
                 })}
+                </Grid>
             </section>
         </main>
 
