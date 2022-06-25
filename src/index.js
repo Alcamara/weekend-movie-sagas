@@ -39,7 +39,7 @@ function* fetchMovieDetails(action){
         //make axios request to get movie title, image, 
         //description, and an array of genres and store into response
       response =  yield axios.get('/api/genre/'+ action.payload)
-      yield put({type:"SET_MOVIE_DETAILs", payload: response.data})
+      yield put({type:"SET_MOVIE_DETAILS", payload: response.data})
     } catch (err) {
         console.log('Get Details failed', err);
     }
@@ -64,9 +64,9 @@ const movies = (state = [], action) => {
 //Used to store movie details return from the server
 const movieDetails = (state = [], action) =>{
     switch (action.type) {
-        case 'SET_MOVIE_DETAILs':
+        case 'SET_MOVIE_DETAILS':
             
-            return [...state, action.type];
+            return  action.payload;
     
         default:
             return state;
