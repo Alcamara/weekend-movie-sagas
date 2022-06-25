@@ -29,7 +29,7 @@ function MovieList() {
         <main>
             <h1>MovieList</h1>
             <section className="movies">
-                <Grid container spacing={3}>
+                <Grid container spacing={3} justifyContent='center'>
                 {movies.map(movie => {
                     return (
                        <Grid item >
