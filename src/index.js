@@ -4,12 +4,14 @@ import './index.css';
 import App from './components/App/App.js';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Provider allows us to use redux within our react app
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import logger from 'redux-logger';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+
+
 
 // Create the rootSaga generator function
 function* rootSaga() {
@@ -66,9 +68,9 @@ function* addMovie(action){
 
         yield axios.post('/api/movie', action.payload)
 
-        dispatch({
-            type: 'FETCH_MOVIES'
-        })
+        yield put({
+                type: 'FETCH_MOVIES'
+            })
         
     } catch (error) {
         console.log('Axios post request failed',error);

@@ -4,6 +4,17 @@ import { useHistory } from 'react-router-dom';
 //css
 import './MovieForm.css';
 
+/*
+    Material UI form for control, input, dropdown and
+    buttons
+*/
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+
 export default function MovieForm(){
     const history = useHistory()
     const dispatch = useDispatch();
@@ -18,94 +29,116 @@ export default function MovieForm(){
     },[])
 
    function onSubmit(evt){
-        evt.preventDefault()
-        console.log(formData);
+        
+            evt.preventDefault()
+            console.log(formData);
 
-    dispatch({
-            type:'ADD_MOVIE',
-            payload: formData
-        })
+            dispatch({
+                type:'ADD_MOVIE',
+                payload: formData
+            })
+
+            SetFormData({title:'', poster:'', description:'', genre_id: 0 })
+
+
+
             
             history.push('/')
-      
+            
+            
+            
+    
     }
     
 
     return(
         <div>
             <h3>Movie Form</h3>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <input 
-                        onChange={(evt)=>{
-                            SetFormData({
-                                ...formData,
-                                title: evt.target.value})
-                        }} 
-                        type="text"
-                        placeholder='Movie Title'
-                        required
-                    />
-                    <input
-                        onChange={(evt)=>{
-                            SetFormData({
-                                ...formData,
-                                poster: evt.target.value})
-                        }}  
-                        type="text" 
-                        placeholder='URL Image'
-                        required/>
-                    <select
-                        onChange={(evt)=>{
-                            SetFormData({
-                                ...formData,
-                                genre_id: Number(evt.target.value)})
-                        }} 
-                        name="movie-genres" 
-                        id="genres" required>
-                            <option 
-                                selected disabled  
-                                value='Genres'>
-                                    Movie Genre
-                            </option>
-                            {genres.map(genre =>(
-                                <option 
+           {(genres.length !== 0)? 
+           <form>
+            <div>
+                    <FormControl>
+                        <InputLabel>Movie Title</InputLabel>
+                        <OutlinedInput
+                            value={formData.title}
+                            onChange={(evt)=>{
+                                SetFormData({
+                                    ...formData,
+                                    title: evt.target.value})
+                            }} 
+                            id="outlined-basic" 
+                            label="Movie Title" 
+                            variant="outlined"
+                            required />
+                    </FormControl>
+                    <FormControl>
+                        <InputLabel>URL Image</InputLabel>
+                        <OutlinedInput
+                            value={formData.poster}
+                            onChange={(evt)=>{
+                                SetFormData({
+                                    ...formData,
+                                    poster: evt.target.value})
+                            }}  
+                            id="outlined-basic" 
+                            label="URL Image" 
+                            variant="outlined"
+                            required
+                            />
+                    </FormControl>
+                    <FormControl sx={{ minWidth:150}}>
+                        <InputLabel>Movie Genres</InputLabel>
+                        <Select
+                            required
+                            defaultValue={'1'}
+                            onChange={(evt)=>{
+                                SetFormData({
+                                    ...formData,
+                                    genre_id: Number(evt.target.value)})
+                            }} 
+                            label='Movie Genres'
+                        >
+                        {genres.map(genre =>(
+                                <MenuItem
+                                    tabIndex={genre.id} 
                                     key={genre.id} 
-                                    id={genre.id} 
+                                    id={genre.id } 
                                     value={genre.id}>
                                         {genre.name}
-                                </option>
+                                </MenuItem>
                             ))}
-                        
-                       
-                    </select>
+                        </Select>
+                    </FormControl>
                 </div>
-
                 <div>
-                    <textarea
+                    <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined">
+                    <InputLabel >Movie Description</InputLabel>
+                    <OutlinedInput
                         onChange={(evt)=>{
                             SetFormData({
                                 ...formData,
                                 description: evt.target.value})
-                        }} 
-                        placeholder='Movie Description' 
-                        name="movie-description" 
-                        id="" 
-                        rows="5"
-                        required>
-
-                    </textarea>
+                        }}
+                        value={formData.description}
+                        label="Movie Description"
+                        multiline
+                        rows={4}
+                        required
+                    />
+                    </FormControl>
                 </div>
-                
                 <div>
-                    <button>
-                        Cancel
-                    </button>
-                    <button>
+                    <Button
+                        onClick={onSubmit} 
+                        variant="contained"
+                    >
                         Save
-                    </button>
+                    </Button>
+                    <Button color='error' variant="contained" >
+                        Cancel
+                    </Button>
                 </div>
-            </form>
+            </form> : <p>Loading</p> }
         
         </div>
     )
