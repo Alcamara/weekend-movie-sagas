@@ -1,4 +1,7 @@
-
+//MUI
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 export default function Details({movie}){
     return (
         <div>
