@@ -53,7 +53,7 @@ function* fetchGenres(action){
     console.log('in fetchGenres', action.type);
     try {
         const response = yield axios.get('/api/genre')
-        console.log(response.data);
+        yield put({type:"SET_GENRES", payload: response.data})
     } catch (error) {
         console.log('Get request failed',error);
     }
@@ -93,6 +93,8 @@ const genres = (state = [], action) => {
             return state;
     }
 }
+
+
 
 // Create one store that all components can use
 const storeInstance = createStore(

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 //css
 import './MovieForm.css'
 //Material UI
@@ -12,14 +13,17 @@ import InputLabel from '@mui/material/InputLabel';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
+
 export default function MovieForm(){
     const dispatch = useDispatch();
-
+    const genres = useSelector(store => store.genres)
+    console.log(genres);
     useEffect(()=>{
         dispatch({
             type:'FETCH_GENRES'
         })
-    })
+    },[])
+    
 
     return(
         <div>
@@ -29,10 +33,11 @@ export default function MovieForm(){
                     <input type="text" placeholder='Movie Title'/>
                     <input type="text" placeholder='URL Image'/>
                     <select name="movie-genres" id="genres">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                        {genres.map(genre =>(
+                            <option value={genre.name}>{genre.name}</option>
+                        ))}
+                        
+                       
                     </select>
                 </div>
                 <div>
