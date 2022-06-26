@@ -65,6 +65,10 @@ function* addMovie(action){
     try {
 
         yield axios.post('/api/movie', action.payload)
+
+        dispatch({
+            type: 'FETCH_MOVIES'
+        })
         
     } catch (error) {
         console.log('Axios post request failed',error);

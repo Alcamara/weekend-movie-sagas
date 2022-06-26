@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
 //css
 import './MovieForm.css';
 
 export default function MovieForm(){
+    const history = useHistory()
     const dispatch = useDispatch();
     const [formData,SetFormData] = useState({title:'', poster:'', description:'', genre_id: 0 })
     const genres = useSelector(store => store.genres)
-    console.log(genres);
+    
 
     useEffect(()=>{
         dispatch({
@@ -16,14 +17,17 @@ export default function MovieForm(){
         })
     },[])
 
-    const onSubmit = (evt)=>{
+   function onSubmit(evt){
         evt.preventDefault()
         console.log(formData);
 
-        dispatch({
+    dispatch({
             type:'ADD_MOVIE',
             payload: formData
         })
+            
+            history.push('/')
+      
     }
     
 
@@ -39,7 +43,8 @@ export default function MovieForm(){
                                 title: evt.target.value})
                         }} 
                         type="text"
-                         placeholder='Movie Title'
+                        placeholder='Movie Title'
+                        required
                     />
                     <input
                         onChange={(evt)=>{
@@ -49,7 +54,7 @@ export default function MovieForm(){
                         }}  
                         type="text" 
                         placeholder='URL Image'
-                        />
+                        required/>
                     <select
                         onChange={(evt)=>{
                             SetFormData({
@@ -57,10 +62,19 @@ export default function MovieForm(){
                                 genre_id: Number(evt.target.value)})
                         }} 
                         name="movie-genres" 
-                        id="genres">
-                            <option defaultValue disabled  value='Genres'>Movie Genres</option>
+                        id="genres" required>
+                            <option 
+                                selected disabled  
+                                value='Genres'>
+                                    Movie Genre
+                            </option>
                             {genres.map(genre =>(
-                                <option key={genre.id} id={genre.id} value={genre.id}>{genre.name}</option>
+                                <option 
+                                    key={genre.id} 
+                                    id={genre.id} 
+                                    value={genre.id}>
+                                        {genre.name}
+                                </option>
                             ))}
                         
                        
@@ -77,12 +91,16 @@ export default function MovieForm(){
                         placeholder='Movie Description' 
                         name="movie-description" 
                         id="" 
-                        rows="5">
+                        rows="5"
+                        required>
 
                     </textarea>
                 </div>
                 
                 <div>
+                    <button>
+                        Cancel
+                    </button>
                     <button>
                         Save
                     </button>
