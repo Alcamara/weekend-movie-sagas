@@ -57,6 +57,19 @@ export default function MovieForm(){
                             label="URL Image" 
                             variant="outlined" />
                     </FormControl>
+                    <FormControl sx={{ minWidth:150}}>
+                        <InputLabel>Movie Genres</InputLabel>
+                        <Select>
+                        {genres.map(genre =>(
+                                <MenuItem 
+                                    key={genre.id} 
+                                    id={genre.id} 
+                                    value={genre.id}>
+                                        {genre.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </div>
                 <div>
                     <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined">
