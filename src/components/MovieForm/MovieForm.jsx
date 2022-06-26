@@ -4,6 +4,13 @@ import { useHistory } from 'react-router-dom';
 //css
 import './MovieForm.css';
 
+//Material UI
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 export default function MovieForm(){
     const history = useHistory()
     const dispatch = useDispatch();
@@ -35,75 +42,32 @@ export default function MovieForm(){
         <div>
             <h3>Movie Form</h3>
             <form onSubmit={onSubmit}>
+            <div>
+                    <FormControl>
+                        <InputLabel>Movie Title</InputLabel>
+                        <OutlinedInput
+                            id="outlined-basic" 
+                            label="Movie Title" 
+                            variant="outlined" />
+                    </FormControl>
+                    <FormControl>
+                        <InputLabel>URL Image</InputLabel>
+                        <OutlinedInput
+                            id="outlined-basic" 
+                            label="URL Image" 
+                            variant="outlined" />
+                    </FormControl>
+                </div>
                 <div>
-                    <input 
-                        onChange={(evt)=>{
-                            SetFormData({
-                                ...formData,
-                                title: evt.target.value})
-                        }} 
-                        type="text"
-                        placeholder='Movie Title'
-                        required
+                    <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined">
+                    <InputLabel >Movie Description</InputLabel>
+                    <OutlinedInput
+                    id="outlined-multiline-static"
+                    label="Movie Description"
+                    multiline
+                    rows={4}
                     />
-                    <input
-                        onChange={(evt)=>{
-                            SetFormData({
-                                ...formData,
-                                poster: evt.target.value})
-                        }}  
-                        type="text" 
-                        placeholder='URL Image'
-                        required/>
-                    <select
-                        onChange={(evt)=>{
-                            SetFormData({
-                                ...formData,
-                                genre_id: Number(evt.target.value)})
-                        }} 
-                        name="movie-genres" 
-                        id="genres" required>
-                            <option 
-                                selected disabled  
-                                value='Genres'>
-                                    Movie Genre
-                            </option>
-                            {genres.map(genre =>(
-                                <option 
-                                    key={genre.id} 
-                                    id={genre.id} 
-                                    value={genre.id}>
-                                        {genre.name}
-                                </option>
-                            ))}
-                        
-                       
-                    </select>
-                </div>
-
-                <div>
-                    <textarea
-                        onChange={(evt)=>{
-                            SetFormData({
-                                ...formData,
-                                description: evt.target.value})
-                        }} 
-                        placeholder='Movie Description' 
-                        name="movie-description" 
-                        id="" 
-                        rows="5"
-                        required>
-
-                    </textarea>
-                </div>
-                
-                <div>
-                    <button>
-                        Cancel
-                    </button>
-                    <button>
-                        Save
-                    </button>
+                    </FormControl>
                 </div>
             </form>
         
