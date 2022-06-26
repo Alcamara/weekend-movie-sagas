@@ -15,7 +15,7 @@ export default function Details({movie}){
                     </Typography>
                 </CardContent>
                 <CardContent>
-                    <img src={movie[0].poster}  alt="simple pick" />
+                    <img src={movie[0].poster} height='250' alt="simple pick" />
                 </CardContent>
                 <CardContent>
                     <Typography paragraph  variant="body2">

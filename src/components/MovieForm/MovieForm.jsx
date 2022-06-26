@@ -2,21 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 //css
-import './MovieForm.css'
-//Material UI
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-
-//bootstrap
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-
+import './MovieForm.css';
 
 export default function MovieForm(){
     const dispatch = useDispatch();
-    const [formData,SetFormData] = useState({title:'', poster:'', description:'', genre: '' })
+    const [formData,SetFormData] = useState({title:'', poster:'', description:'', genre_id: 0 })
     const genres = useSelector(store => store.genres)
     console.log(genres);
 
@@ -29,7 +19,7 @@ export default function MovieForm(){
     const onSubmit = (evt)=>{
         evt.preventDefault()
         console.log(formData);
-        
+
         dispatch({
             type:'ADD_MOVIE',
             payload: formData
@@ -64,13 +54,13 @@ export default function MovieForm(){
                         onChange={(evt)=>{
                             SetFormData({
                                 ...formData,
-                                genre: evt.target.value})
+                                genre_id: Number(evt.target.value)})
                         }} 
                         name="movie-genres" 
                         id="genres">
-                            <option selected disabled  value='Genres'>Movie Genres</option>
+                            <option defaultValue disabled  value='Genres'>Movie Genres</option>
                             {genres.map(genre =>(
-                                <option key={genre.id} id={genre.id} value={genre.name}>{genre.name}</option>
+                                <option key={genre.id} id={genre.id} value={genre.id}>{genre.name}</option>
                             ))}
                         
                        
@@ -94,7 +84,7 @@ export default function MovieForm(){
                 
                 <div>
                     <button>
-                        Add Movies
+                        Save
                     </button>
                 </div>
             </form>
