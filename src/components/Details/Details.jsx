@@ -4,12 +4,13 @@ import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
+
 export default function Details({movie}){
     return (
         <div>
             <Card  sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }} >
                 <CardContent>
-                    <Typography sx={{ fontSize: 20 }}>
+                    <Typography component="div" variant="h4" >
                         {movie[0].title}
                     </Typography>
                 </CardContent>
@@ -17,7 +18,7 @@ export default function Details({movie}){
                     <img src={movie[0].poster}  alt="simple pick" />
                 </CardContent>
                 <CardContent>
-                    <Typography variant="body2">
+                    <Typography paragraph  variant="body2">
                         {movie[0].description}
                     </Typography>
                 </CardContent>
