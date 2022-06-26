@@ -16,7 +16,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function MovieForm(){
     const dispatch = useDispatch();
-    const [formData,SetFormData] = useState({title:'', poster:'', description:'', genre_id: 0 })
+    const [formData,SetFormData] = useState({title:'', poster:'', description:'', genre: '' })
     const genres = useSelector(store => store.genres)
     console.log(genres);
 
@@ -25,25 +25,59 @@ export default function MovieForm(){
             type:'FETCH_GENRES'
         })
     },[])
+
+    const onSubmit = (evt)=>{
+        evt.preventDefault()
+        console.log(formData);
+    }
     
 
     return(
         <div>
             <h3>Movie Form</h3>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div>
-                    <input type="text" placeholder='Movie Title'/>
-                    <input type="text" placeholder='URL Image'/>
-                    <select name="movie-genres" id="genres">
-                        {genres.map(genre =>(
-                            <option id={genre.id} value={genre.name}>{genre.name}</option>
-                        ))}
+                    <input 
+                        onChange={(evt)=>{
+                            SetFormData({
+                                ...formData,
+                                title: evt.target.value})
+                        }} 
+                        type="text"
+                         placeholder='Movie Title'
+                    />
+                    <input
+                        onChange={(evt)=>{
+                            SetFormData({
+                                ...formData,
+                                poster: evt.target.value})
+                        }}  
+                        type="text" 
+                        placeholder='URL Image'
+                        />
+                    <select
+                        onChange={(evt)=>{
+                            SetFormData({
+                                ...formData,
+                                genre: evt.target.value})
+                        }} 
+                        name="movie-genres" 
+                        id="genres">
+                            <option selected disabled  value='Genres'>Movie Genres</option>
+                            {genres.map(genre =>(
+                                <option key={genre.id} id={genre.id} value={genre.name}>{genre.name}</option>
+                            ))}
                         
                        
                     </select>
                 </div>
                 <div>
                     <textarea
+                        onChange={(evt)=>{
+                            SetFormData({
+                                ...formData,
+                                description: evt.target.value})
+                        }} 
                         placeholder='Movie Description' 
                         name="movie-description" 
                         id="" 
@@ -52,7 +86,11 @@ export default function MovieForm(){
                     </textarea>
                 </div>
                 
-                
+                <div>
+                    <button>
+                        Add Movies
+                    </button>
+                </div>
                 
                 
 
