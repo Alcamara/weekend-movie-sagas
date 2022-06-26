@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 //css
 import './MovieForm.css'
 //Material UI
@@ -11,6 +13,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function MovieForm(){
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch({
+            type:'FETCH_GENRES'
+        })
+    })
+
     return(
         <div>
             <h3>Movie Form</h3>
