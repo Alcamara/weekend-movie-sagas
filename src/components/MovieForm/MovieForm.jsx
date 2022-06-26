@@ -1,4 +1,5 @@
-
+//css
+import './MovieForm.css'
 //Material UI
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
@@ -26,6 +27,7 @@ export default function MovieForm(){
                 </div>
                 <div>
                     <textarea
+                       
                         placeholder='Movie Description' 
                         name="movie-description" 
                         id="" 
