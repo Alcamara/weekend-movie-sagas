@@ -29,6 +29,11 @@ export default function MovieForm(){
     const onSubmit = (evt)=>{
         evt.preventDefault()
         console.log(formData);
+        
+        dispatch({
+            type:'ADD_MOVIE',
+            payload: formData
+        })
     }
     
 
@@ -71,6 +76,7 @@ export default function MovieForm(){
                        
                     </select>
                 </div>
+
                 <div>
                     <textarea
                         onChange={(evt)=>{
@@ -91,9 +97,6 @@ export default function MovieForm(){
                         Add Movies
                     </button>
                 </div>
-                
-                
-
             </form>
         
         </div>
