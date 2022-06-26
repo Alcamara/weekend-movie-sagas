@@ -31,7 +31,7 @@ export default function MovieForm(){
                         placeholder='Movie Description' 
                         name="movie-description" 
                         id="" 
-                        cols="57" 
+                         
                         rows="5">
 
                     </textarea>
