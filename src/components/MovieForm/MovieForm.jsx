@@ -24,6 +24,16 @@ export default function MovieForm(){
                         <option value="audi">Audi</option>
                     </select>
                 </div>
+                <div>
+                    <textarea
+                        placeholder='Movie Description' 
+                        name="movie-description" 
+                        id="" 
+                        cols="57" 
+                        rows="5">
+
+                    </textarea>
+                </div>
                 
                 
                 
