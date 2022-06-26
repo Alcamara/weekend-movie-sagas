@@ -46,6 +46,11 @@ export default function MovieForm(){
                     <FormControl>
                         <InputLabel>Movie Title</InputLabel>
                         <OutlinedInput
+                            onChange={(evt)=>{
+                                SetFormData({
+                                    ...formData,
+                                    title: evt.target.value})
+                            }} 
                             id="outlined-basic" 
                             label="Movie Title" 
                             variant="outlined" />
@@ -53,13 +58,25 @@ export default function MovieForm(){
                     <FormControl>
                         <InputLabel>URL Image</InputLabel>
                         <OutlinedInput
+                            onChange={(evt)=>{
+                                SetFormData({
+                                    ...formData,
+                                    poster: evt.target.value})
+                            }}  
                             id="outlined-basic" 
                             label="URL Image" 
                             variant="outlined" />
                     </FormControl>
                     <FormControl sx={{ minWidth:150}}>
                         <InputLabel>Movie Genres</InputLabel>
-                        <Select>
+                        <Select
+                            onChange={(evt)=>{
+                                SetFormData({
+                                    ...formData,
+                                    genre_id: Number(evt.target.value)})
+                            }} 
+                            label='Movie Genres'
+                        >
                         {genres.map(genre =>(
                                 <MenuItem 
                                     key={genre.id} 
@@ -75,10 +92,15 @@ export default function MovieForm(){
                     <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined">
                     <InputLabel >Movie Description</InputLabel>
                     <OutlinedInput
-                    id="outlined-multiline-static"
-                    label="Movie Description"
-                    multiline
-                    rows={4}
+                        onChange={(evt)=>{
+                            SetFormData({
+                                ...formData,
+                                description: evt.target.value})
+                        }} 
+                        id="outlined-multiline-static"
+                        label="Movie Description"
+                        multiline
+                        rows={4}
                     />
                     </FormControl>
                 </div>
