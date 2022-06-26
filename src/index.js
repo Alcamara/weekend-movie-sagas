@@ -15,6 +15,8 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
+    yield takeEvery('FETCH_GENRES', fetchGenres);
+    yield takeEvery('ADD_MOVIE', addMovie)
 }
 
 function* fetchAllMovies() {
@@ -46,6 +48,27 @@ function* fetchMovieDetails(action){
 
     //console.log(response.data);
 
+}
+
+function* fetchGenres(action){
+    console.log('in fetchGenres', action.type);
+    try {
+        const response = yield axios.get('/api/genre')
+        yield put({type:"SET_GENRES", payload: response.data})
+    } catch (error) {
+        console.log('Get request failed',error);
+    }
+}
+
+function* addMovie(action){
+    console.log('in addMovie');
+    try {
+
+        yield axios.post('/api/movie', action.payload)
+        
+    } catch (error) {
+        console.log('Axios post request failed',error);
+    }
 }
 
 // Create sagaMiddleware
@@ -82,6 +105,8 @@ const genres = (state = [], action) => {
             return state;
     }
 }
+
+
 
 // Create one store that all components can use
 const storeInstance = createStore(

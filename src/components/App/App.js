@@ -10,7 +10,7 @@ function App() {
       <h1>The Movies Saga!</h1>
       <Router>        
         <Route path="/" exact>
-          <MovieForm/>
+          
           <MovieList />
         </Route>
         
@@ -19,6 +19,9 @@ function App() {
           <MovieDetails/>
         </Route>
         {/* Add Movie page */}
+        <Route path='/form'>
+          <MovieForm/>
+        </Route>
       </Router>
     </div>
   );
