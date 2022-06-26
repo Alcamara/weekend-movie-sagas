@@ -4,8 +4,12 @@ const pool = require('../modules/pool')
 
 router.get('/',(req,res)=>{
   const genres = `
-  
+    SELECT * FROM genres;
   `
+  pool.query(genres)
+    .then((results)=>{
+      res.send(results.rows)
+    })
 })
 
 router.get('/:id', (req, res) => {
