@@ -16,8 +16,10 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function MovieForm(){
     const dispatch = useDispatch();
+    const [formData,SetFormData] = useState({title:'', poster:'', description:'', genre_id: 0 })
     const genres = useSelector(store => store.genres)
     console.log(genres);
+
     useEffect(()=>{
         dispatch({
             type:'FETCH_GENRES'
@@ -34,7 +36,7 @@ export default function MovieForm(){
                     <input type="text" placeholder='URL Image'/>
                     <select name="movie-genres" id="genres">
                         {genres.map(genre =>(
-                            <option value={genre.name}>{genre.name}</option>
+                            <option id={genre.id} value={genre.name}>{genre.name}</option>
                         ))}
                         
                        
@@ -42,11 +44,9 @@ export default function MovieForm(){
                 </div>
                 <div>
                     <textarea
-                       
                         placeholder='Movie Description' 
                         name="movie-description" 
                         id="" 
-                         
                         rows="5">
 
                     </textarea>
