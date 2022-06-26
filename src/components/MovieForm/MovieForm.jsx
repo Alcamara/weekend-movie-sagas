@@ -4,12 +4,16 @@ import { useHistory } from 'react-router-dom';
 //css
 import './MovieForm.css';
 
-//Material UI
+/*
+    Material UI form for control, input, dropdown and
+    buttons
+*/
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
 
 export default function MovieForm(){
     const history = useHistory()
@@ -25,27 +29,38 @@ export default function MovieForm(){
     },[])
 
    function onSubmit(evt){
-        evt.preventDefault()
-        console.log(formData);
+        
+            evt.preventDefault()
+            console.log(formData);
 
-    dispatch({
-            type:'ADD_MOVIE',
-            payload: formData
-        })
+            dispatch({
+                type:'ADD_MOVIE',
+                payload: formData
+            })
+
+            SetFormData({title:'', poster:'', description:'', genre_id: 0 })
+
+
+
             
             history.push('/')
-      
+            
+            
+            
+    
     }
     
 
     return(
         <div>
             <h3>Movie Form</h3>
-            <form onSubmit={onSubmit}>
+           {(genres.length !== 0)? 
+           <form>
             <div>
                     <FormControl>
                         <InputLabel>Movie Title</InputLabel>
                         <OutlinedInput
+                            value={formData.title}
                             onChange={(evt)=>{
                                 SetFormData({
                                     ...formData,
@@ -53,11 +68,13 @@ export default function MovieForm(){
                             }} 
                             id="outlined-basic" 
                             label="Movie Title" 
-                            variant="outlined" />
+                            variant="outlined"
+                            required />
                     </FormControl>
                     <FormControl>
                         <InputLabel>URL Image</InputLabel>
                         <OutlinedInput
+                            value={formData.poster}
                             onChange={(evt)=>{
                                 SetFormData({
                                     ...formData,
@@ -65,11 +82,15 @@ export default function MovieForm(){
                             }}  
                             id="outlined-basic" 
                             label="URL Image" 
-                            variant="outlined" />
+                            variant="outlined"
+                            required
+                            />
                     </FormControl>
                     <FormControl sx={{ minWidth:150}}>
                         <InputLabel>Movie Genres</InputLabel>
                         <Select
+                            required
+                            defaultValue={'1'}
                             onChange={(evt)=>{
                                 SetFormData({
                                     ...formData,
@@ -78,9 +99,10 @@ export default function MovieForm(){
                             label='Movie Genres'
                         >
                         {genres.map(genre =>(
-                                <MenuItem 
+                                <MenuItem
+                                    tabIndex={genre.id} 
                                     key={genre.id} 
-                                    id={genre.id} 
+                                    id={genre.id } 
                                     value={genre.id}>
                                         {genre.name}
                                 </MenuItem>
@@ -96,15 +118,27 @@ export default function MovieForm(){
                             SetFormData({
                                 ...formData,
                                 description: evt.target.value})
-                        }} 
-                        id="outlined-multiline-static"
+                        }}
+                        value={formData.description}
                         label="Movie Description"
                         multiline
                         rows={4}
+                        required
                     />
                     </FormControl>
                 </div>
-            </form>
+                <div>
+                    <Button
+                        onClick={onSubmit} 
+                        variant="contained"
+                    >
+                        Save
+                    </Button>
+                    <Button color='error' variant="contained" >
+                        Cancel
+                    </Button>
+                </div>
+            </form> : <p>Loading</p> }
         
         </div>
     )
