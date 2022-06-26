@@ -3,12 +3,16 @@ const router = express.Router();
 const pool = require('../modules/pool')
 
 router.get('/',(req,res)=>{
+  //variable to hold sql syntax
   const genres = `
     SELECT * FROM genres;
   `
   pool.query(genres)
     .then((results)=>{
       res.send(results.rows)
+    })
+    .catch((err)=>{
+      console.log('Query failed', err)
     })
 })
 
