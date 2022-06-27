@@ -134,7 +134,13 @@ export default function MovieForm(){
                     >
                         Save
                     </Button>
-                    <Button color='error' variant="contained" >
+                    <Button 
+                        onClick={()=>{
+                            history.push('/')
+                        }}
+                        color='error' 
+                        variant="contained" 
+                    >
                         Cancel
                     </Button>
                 </div>
