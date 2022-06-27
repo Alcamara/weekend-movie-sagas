@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 //MUI
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
@@ -32,6 +34,9 @@ export default function Details({movie}){
                     )).join(', ')}
                     </Typography>
                 </CardContent>
+                <Link to='/'>
+                    back
+                </Link>
             </Card>
         </div>
     )
